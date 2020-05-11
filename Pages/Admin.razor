@@ -1,0 +1,107 @@
+﻿
+
+@page "/Admin"
+
+@inject IJSRuntime _JSRuntime
+@inject ConfigurationData _ConfigurationData
+
+    <div class="container text-left">
+
+        <div class="container col-lg-5 text-left">
+            <h1>数据添加</h1>
+            <form class="text-left">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">产品名称</label>
+                        <input type="text" class="form-control" @bind="Certificate.Name">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">产品编号</label>
+                        <input type="text" class="form-control" @bind="Certificate.Numbel">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">试验日期</label>
+                    <input type="date" class="form-control" @bind="Certificate.TestDateTime">
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress2">下次试验日期</label>
+                    <input type="date" class="form-control" @bind="Certificate.VNextTestDateTime">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">试验人</label>
+                        <input type="text" class="form-control" @bind="Certificate.TestPersonnel">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" @onclick="AddCertificates">添加</button>
+            </form>
+
+        </div>
+      
+
+        <dvi class="row">
+            @foreach (var itme in Certificates)
+            {
+                <div class="card" style="width: 15rem;">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p>@itme.Name</p>
+                        <p>@itme.Numbel</p>
+                        @*<h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
+                        <button class="btn btn-primary">下载图片</button>
+                        <button class="btn btn-primary" @onclick="@(d=>DelCertificates(@itme.Numbel))">删除</button>
+                    </div>
+                </div>
+            }
+        </dvi>
+       
+    </div>
+@code {
+
+    private Certificate Certificate { set; get; } = new Certificate();
+
+    private List<Certificate> Certificates { set; get; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        Certificates = _ConfigurationData.GetConfigJson();
+    }
+
+    private async void  AddCertificates()
+    {
+        if(Certificate!=null)
+        {
+            var select = Certificates.FirstOrDefault(f=>f.Numbel==Certificate.Numbel);
+            if(select==null)
+            {
+                Certificates.Add(new Certificate()
+                {
+                    Name = Certificate.Name,
+                    Numbel= Certificate.Numbel,
+                    TestDateTime=Certificate.TestDateTime,
+                    TestPersonnel=Certificate.TestPersonnel,
+                    VNextTestDateTime =Certificate.VNextTestDateTime
+                });
+            }
+            else
+            {
+                await _JSRuntime.InvokeVoidAsync("alert", "产品添加失败,已经存在相同编码产品");
+            }
+
+            _ConfigurationData.SaveJson(Certificates);
+        }
+    }
+
+    private async void DelCertificates(string number)
+    {
+        var scer = Certificates.Find(r=>r.Numbel==number);
+        if(scer!=null)
+        {
+             Certificates.Remove(scer);
+             await _JSRuntime.InvokeVoidAsync("alert", "产品删除成功");
+        }
+    }
+}
