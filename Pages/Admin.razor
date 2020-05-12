@@ -5,6 +5,7 @@
 @inject IJSRuntime _JSRuntime
 @inject ConfigurationData _ConfigurationData
 @inject NavigationManager UriHelper
+@inject MyBlazorDbContext _DbContext
 
 
 
@@ -136,6 +137,18 @@
                     TestPersonnel = Certificate.TestPersonnel,
                     VNextTestDateTime = Certificate.VNextTestDateTime
                 });
+                _DbContext.TableCertificates.Add(new Certificate()
+                {
+                    Guid = Guid.NewGuid().ToString(),
+                    TD = Certificate.TD,
+                    ToTD = Certificate.ToTD,
+                    Name = Certificate.Name,
+                    Numbel = Certificate.Numbel,
+                    TestDateTime = Certificate.TestDateTime,
+                    TestPersonnel = Certificate.TestPersonnel,
+                    VNextTestDateTime = Certificate.VNextTestDateTime
+                });
+                _DbContext.SaveChanges();
             }
             else
             {

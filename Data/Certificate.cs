@@ -7,9 +7,9 @@ namespace MyBlazor.Data
 {
     public class Certificate
     {
-        public string Guid { set; get; }
 
-        
+        public int ID { set; get; }
+        public string Guid { set; get; }
         /// <summary>
         /// 所属单位
         /// </summary>
