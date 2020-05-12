@@ -23,9 +23,20 @@ namespace MyBlazor.Data
             }).ToArray());
         }
 
-        //public Task<Certificate[]> GetCertificates(string number)
+        //public Task<Certificate[]> GetCertificates()
         //{
-            
+        //    var list = new Certificate[]
+        //    {
+
+        //        new Certificate()
+        //        {
+        //             Guid=
+        //        };
+        //        new Certificate()
+        //        {
+
+        //        };
+        //    }
         //}
     }
 }

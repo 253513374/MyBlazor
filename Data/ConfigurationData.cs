@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Routing;
+using QRCoder;
 
 namespace MyBlazor.Data
 {
@@ -12,11 +15,12 @@ namespace MyBlazor.Data
     {
 
         string filePath = AppDomain.CurrentDomain.BaseDirectory + @"Certificate.json";
-       // private List<Certificate> ListRules { get; set; } 
+        public List<Certificate> ListCertificates { get; set; } 
 
         public ConfigurationData()
         {
-          //  ListRules = GetConfigJson();
+            //  ListRules = GetConfigJson();
+            GetConfigJson();
         }
         public void SaveJson(List<Certificate> ListRules)
         {
@@ -46,21 +50,29 @@ namespace MyBlazor.Data
 
         
 
-        public List<Certificate> GetConfigJson()
+        public void GetConfigJson()
         {
-            if (!File.Exists(filePath)) return new List<Certificate>() { new Certificate() };
+            if (!File.Exists(filePath)) ListCertificates = new List<Certificate>() { new Certificate() };
             using (var Filevar = new FileStream(filePath, FileMode.Open))
             {
                 using (var read = new StreamReader(Filevar))
                 {
                     var json = read.ReadToEnd();
-                    return JsonSerializer.Deserialize<List<Certificate>>(json).ToList();
+                    ListCertificates = JsonSerializer.Deserialize<List<Certificate>>(json).ToList();
                 }
             }
         }
 
 
+        public string GetQrImg( string qrtext)
+        {
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(qrtext, QRCodeGenerator.ECCLevel.Q);
+            Base64QRCode qrCode = new Base64QRCode(qrCodeData);
+            string qrCodeImageAsBase64 = qrCode.GetGraphic(5);
 
+            return "data:image/png;base64," + qrCodeImageAsBase64;
+        }
 
     }
 }

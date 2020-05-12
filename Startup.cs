@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyBlazor.Data;
 
+
 namespace MyBlazor
 {
     public class Startup
@@ -30,6 +31,7 @@ namespace MyBlazor
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
             services.AddScoped<ConfigurationData>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

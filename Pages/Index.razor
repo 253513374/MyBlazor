@@ -4,29 +4,36 @@
 @page "/{Id}"
 
 
+@inject NavigationManager UriHelper
 
-    <div class="container-fluid text-left" >
-        @*  <h3 style="padding-top:3em">海南威特送变电工程有限公司</h3>*@
+@inject ConfigurationData _ConfigurationData
+
+
+<div class="container-fluid text-left">
+    @*  <h3 style="padding-top:3em">海南威特送变电工程有限公司</h3>*@
 
 
 
-        <img src="/css/image/wtlog2.png" class="img-fluid rounded mx-auto " style="padding-top:0em;padding-bottom:0.5em">
-        @*Welcome to your new app.*@
-        <p class=" h4 text-monospace font-weight-bolder" style="font-family:Consolas;color:white">
-            HAINAN WEITE POWER TRANSMISSION AND TRANSFORMATION CO.,LTD
+    <img src="/css/image/wtlog2.png" class="img-fluid rounded mx-auto " style="padding-top:0em;padding-bottom:0.5em">
+    @*Welcome to your new app.*@
+    <p class=" h4 text-monospace font-weight-bolder" style="font-family:Consolas;color:#0a3f8b">
+        HAINAN WEITE POWER TRANSMISSION AND TRANSFORMATION CO.,LTD
+    </p>
+    @*<SurveyPrompt Title="How is Blazor working for you?" />*@
+    <SurveyPrompt Title="@Id" />
+
+    @if (!string.IsNullOrEmpty(Id))
+    {
+        <ReportFile Number="@Productnumber" />
+    }
+
+
+    <div class="text-center text-nowrap font-weight-normal text-monospace">
+        <p>
+            海南威特送变电工程有限公司
         </p>
-        @*<SurveyPrompt Title="How is Blazor working for you?" />*@
-        <SurveyPrompt Title="@Id" />
-
-
-        <ReportFile/>
-
-        <div class="text-center text-nowrap font-weight-normal text-monospace">
-            <p>
-                海南威特送变电工程有限公司
-            </p>
-        </div>
     </div>
+</div>
 
 
 
@@ -35,4 +42,23 @@
 @code{
     [Parameter]
     public string Id { get; set; }
+
+    private string Productnumber { set; get; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        var find=_ConfigurationData.ListCertificates.Find(f => f.Guid == Id);
+
+        if(find!=null)
+        {
+            Productnumber = find.Numbel;
+        }
+        //if (authenticationStateTask.Result.User.Identity.IsAuthenticated)
+        //{
+        //   CallCenterUser = await _UserManager.GetUserAsync(authenticationStateTask.Result.User);
+        //    Name = CallCenterUser.RealName;
+        //}
+    }
+
 }

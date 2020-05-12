@@ -7,14 +7,38 @@ namespace MyBlazor.Data
 {
     public class Certificate
     {
-        public string Name { set; get; } = "安全帽";
+        public string Guid { set; get; }
 
-        public string Numbel { set; get; } = "10086";
+        
+        /// <summary>
+        /// 所属单位
+        /// </summary>
+        public string TD { set; get; }
 
+        /// <summary>
+        /// 校验单位
+        /// </summary>
+        public string ToTD { set; get; } 
+        /// <summary>
+        /// 产品名称
+        /// </summary>
+        public string Name { set; get; } 
+
+        /// <summary>
+        /// 产品编号
+        /// </summary>
+        public string Numbel { set; get; } 
+
+        /// <summary>
+        /// 试验日期
+        /// </summary>
         public DateTime TestDateTime { set; get; } = DateTime.Now.Date;
 
         public DateTime VNextTestDateTime { set; get; }= DateTime.Now.AddDays(15).Date;
 
-        public string TestPersonnel { set; get; } = "萧何";
+        /// <summary>
+        /// 试验人员
+        /// </summary>
+        public string TestPersonnel { set; get; }
     }
 }

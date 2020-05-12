@@ -69,14 +69,15 @@
             <dd class="col-md-8 col-7">@AtCertificate.TestPersonnel</dd>
         </dl>*@
 
-        <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">所属单位:<span class="font-weight-bold text-wrap">中海石油海南天然气有限公司</span></p></div>
+        <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">所属单位:<span class="font-weight-bold text-wrap">@AtCertificate.TD</span></p></div>
+       
         <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">产品名称:<span class="font-weight-bold text-wrap">@AtCertificate.Name</span></p> </div>
         <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">产品编号:<span class="font-weight-bold text-wrap">@AtCertificate.Numbel</span></p></div>
         <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">试验日期:<span class="font-weight-bold text-wrap">@AtCertificate.TestDateTime.ToString("yyyy年MM月dd日")</span></p></div>
         <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">下次试验:<span class="font-weight-bold text-wrap">@AtCertificate.VNextTestDateTime.ToString("yyyy年MM月dd日")</span></p></div>
         <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">试验人员:<span class="font-weight-bold text-wrap">@AtCertificate.TestPersonnel</span></p></div>
 
-        <div class="mydiv2  "><p class="font-weight-normal">校验单位:<span class="font-weight-bold">XXXXXXXXXXXXXXX</span></p></div>
+        <div class="mydiv2  "><p class="font-weight-normal">校验单位:<span class="font-weight-bold">@AtCertificate.ToTD</span></p></div>
 
     </div>
 
@@ -122,9 +123,9 @@
 
     public void GetCertificate(string Number)
     {
-        var Certificates = _ConfigurationData.GetConfigJson();
+     //   var Certificates = ;
 
-        var atCertificate = Certificates.FindLast(f => f.Numbel == Number);
+        var atCertificate = _ConfigurationData.ListCertificates.FindLast(f => f.Guid == Number);
         if (atCertificate != null)
         {
             AtCertificate = atCertificate;

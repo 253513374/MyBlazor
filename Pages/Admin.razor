@@ -4,86 +4,137 @@
 
 @inject IJSRuntime _JSRuntime
 @inject ConfigurationData _ConfigurationData
+@inject NavigationManager UriHelper
 
-    <div class="container text-left">
 
-        <div class="container col-lg-5 text-left">
-            <h1>数据添加</h1>
-            <form class="text-left">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputEmail4">产品名称</label>
-                        <input type="text" class="form-control" @bind="Certificate.Name">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputPassword4">产品编号</label>
-                        <input type="text" class="form-control" @bind="Certificate.Numbel">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputAddress">试验日期</label>
-                    <input type="date" class="form-control" @bind="Certificate.TestDateTime">
-                </div>
-                <div class="form-group">
-                    <label for="inputAddress2">下次试验日期</label>
-                    <input type="date" class="form-control" @bind="Certificate.VNextTestDateTime">
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">试验人</label>
-                        <input type="text" class="form-control" @bind="Certificate.TestPersonnel">
-                    </div>
-                </div>
+
+<div class="row " style="background-color:lightgoldenrodyellow;">
+
+    <div class=" col-lg-3 text-center " style="max-width:300px;">
+        <h1>数据添加</h1>
+        <form class="text-left">
+            <div class="form-group ">
+                <label for="inputCity">所属单位</label>
+                <input type="text" class="form-control" @bind="Certificate.TD">
+            </div>
+            <div class="form-group">
+                <label for="inputEmail4">产品名称</label>
+                <input type="text" class="form-control" @bind="Certificate.Name">
+            </div>
+            <div class="form-group">
+                <label for="inputPassword4">产品编号</label>
+                <input type="text" class="form-control" @bind="Certificate.Numbel">
+            </div>
+            <div class="form-group">
+                <label for="inputAddress">试验日期</label>
+                <input type="date" class="form-control" @bind="Certificate.TestDateTime">
+            </div>
+            <div class="form-group">
+                <label for="inputAddress2">下次试验日期</label>
+                <input type="date" class="form-control" @bind="Certificate.VNextTestDateTime">
+            </div>
+            <div class="form-group ">
+                <label for="inputCity">试验人</label>
+                <input type="text" class="form-control" @bind="Certificate.TestPersonnel">
+            </div>
+            <div class="form-group ">
+                <label for="inputCity">校验单位</label>
+                <input type="text" class="form-control" @bind="Certificate.ToTD">
+            </div>
+            <div class="form-group text-right ">
                 <button type="button" class="btn btn-primary" @onclick="AddCertificates">添加</button>
-            </form>
 
-        </div>
-      
+               
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    批量添加
+                </button>
+            </div>
+           
+        </form>
 
-        <dvi class="row">
+    </div>
+
+
+    <div class="col-lg-10 text-center">
+        <dvi class="row ">
             @foreach (var itme in Certificates)
             {
+                var imgsrc = GetImg(itme.Guid);
                 <div class="card" style="width: 15rem;">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src=@imgsrc class="card-img-top" alt="...">
                     <div class="card-body">
                         <p>@itme.Name</p>
                         <p>@itme.Numbel</p>
+                        <p>@itme.Guid</p>
                         @*<h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
-                        <button class="btn btn-primary">下载图片</button>
-                        <button class="btn btn-primary" @onclick="@(d=>DelCertificates(@itme.Numbel))">删除</button>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
+                        <button class="btn btn-primary" @onclick="@(d=>UpCertificates(@itme.Guid))">复制</button>
+
+                        <button class="btn btn-primary" @onclick="@(d=>DelCertificates(@itme.Guid))">删除</button>
                     </div>
                 </div>
             }
         </dvi>
-       
     </div>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">批量生产</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body ">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">生成数量</span>
+                        </div>
+                        <input type="text" class="form-control" @bind="BatchNumber" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                    <p>提示：批量生成规则是【产品编号按顺序递增】</p>
+                </div>
+               
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="AddCertificatesBatch">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @code {
 
     private Certificate Certificate { set; get; } = new Certificate();
 
     private List<Certificate> Certificates { set; get; }
 
+
+    private int BatchNumber { set; get; } = 0;
+
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        Certificates = _ConfigurationData.GetConfigJson();
+        Certificates = _ConfigurationData.ListCertificates;
     }
 
-    private async void  AddCertificates()
+    private async void AddCertificates()
     {
-        if(Certificate!=null)
+        if (Certificate != null)
         {
-            var select = Certificates.FirstOrDefault(f=>f.Numbel==Certificate.Numbel);
-            if(select==null)
+            var select = Certificates.FindLast(f => f.Numbel == Certificate.Numbel);
+            if (select == null)
             {
                 Certificates.Add(new Certificate()
                 {
+                    Guid = Guid.NewGuid().ToString(),
+                    TD = Certificate.TD,
+                    ToTD = Certificate.ToTD,
                     Name = Certificate.Name,
-                    Numbel= Certificate.Numbel,
-                    TestDateTime=Certificate.TestDateTime,
-                    TestPersonnel=Certificate.TestPersonnel,
-                    VNextTestDateTime =Certificate.VNextTestDateTime
+                    Numbel = Certificate.Numbel,
+                    TestDateTime = Certificate.TestDateTime,
+                    TestPersonnel = Certificate.TestPersonnel,
+                    VNextTestDateTime = Certificate.VNextTestDateTime
                 });
             }
             else
@@ -97,11 +148,70 @@
 
     private async void DelCertificates(string number)
     {
-        var scer = Certificates.Find(r=>r.Numbel==number);
-        if(scer!=null)
+        var scer = Certificates.Find(r => r.Guid == number);
+        if (scer != null)
         {
-             Certificates.Remove(scer);
-             await _JSRuntime.InvokeVoidAsync("alert", "产品删除成功");
+            Certificates.Remove(scer);
+            _ConfigurationData.SaveJson(Certificates);
+            await _JSRuntime.InvokeVoidAsync("alert", "产品删除成功");
         }
+    }
+
+    private void UpCertificates(string guid)
+    {
+        var scer = Certificates.Find(r => r.Guid == guid);
+        if (scer != null)
+        {
+            Certificate = new Certificate()
+            {
+                TD = scer.TD,
+                ToTD = scer.ToTD,
+                Name = scer.Name,
+                Numbel = scer.Numbel,
+                TestDateTime = scer.TestDateTime,
+                TestPersonnel = scer.TestPersonnel,
+                VNextTestDateTime = scer.VNextTestDateTime
+            };
+        }
+    }
+
+    private async void AddCertificatesBatch()
+    {
+        if(BatchNumber>0)
+        {
+            await Task.Run(()=> {
+
+                for (int i = 0; i < BatchNumber; i++)
+                {
+                    var num = (int.Parse(Certificate.Numbel) + i).ToString();
+                    var select = Certificates.FindLast(f => f.Numbel == num);
+                    if (select == null)
+                    {
+                        Certificates.Add(new Certificate()
+                        {
+                            Guid = Guid.NewGuid().ToString(),
+                            TD = Certificate.TD,
+                            ToTD = Certificate.ToTD,
+                            Name = Certificate.Name,
+                            Numbel =num,
+                            TestDateTime = Certificate.TestDateTime,
+                            TestPersonnel = Certificate.TestPersonnel,
+                            VNextTestDateTime = Certificate.VNextTestDateTime
+                        });;
+                    }
+                }
+                _ConfigurationData.SaveJson(Certificates);
+
+            });
+        }
+    }
+
+    private string GetImg(string guid)
+    {
+        var u = UriHelper.BaseUri+@"/"+guid;
+
+        // return
+
+        return _ConfigurationData.GetQrImg(u);
     }
 }
