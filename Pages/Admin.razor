@@ -55,26 +55,35 @@
 
     </div>
 
+   
+    <div class=" col-md-5 col-sm-5 col-lg-10 text-center">
 
-    <div class="col-lg-10 text-center">
+        <div style="background-image:url();">
+
+        </div>
         <dvi class="row ">
-            @foreach (var itme in Certificates)
-            {
-                var imgsrc = GetImg(itme.Guid);
-                <div class="card" style="width: 15rem;">
-                    <img src=@imgsrc class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p>@itme.Name</p>
-                        <p>@itme.Numbel</p>
-                        <p>@itme.Guid</p>
-                        @*<h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
-                        <button class="btn btn-primary" @onclick="@(d=>UpCertificates(@itme.Guid))">复制</button>
 
-                        <button class="btn btn-primary" @onclick="@(d=>DelCertificates(@itme.Guid))">删除</button>
+            @if (Certificates!=null)
+            {
+                @foreach (var itme in Certificates)
+                {
+                    var imgsrc = GetImg(itme.Guid);
+                    <div class="card" style="width:15rem;background-size:100%;background-repeat:no-repeat;background-image:url(@imgsrc)">
+                        @*<img src=@imgsrc class="card-img-top" alt="...">*@
+                        <div class="card-body" style="background-color:rgba(8,8,8,0.7);color:#ffffff">
+                            <p >@itme.Name</p>
+                            <p >@itme.Numbel</p>
+                            <p >@itme.Guid</p>
+                            @*<h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
+                            <button class="btn btn-primary" @onclick="@(d=>UpCertificates(@itme.Guid))">复制</button>
+
+                            <button class="btn btn-primary" @onclick="@(d=>DelCertificates(@itme.Guid))" >删除</button>
+                        </div>
                     </div>
-                </div>
+                }
             }
+
         </dvi>
     </div>
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -116,17 +125,17 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        Certificates = _ConfigurationData.ListCertificates;
+        Certificates =  await _DbContext.TableCertificates.AsNoTracking().ToListAsync();// _ConfigurationData.ListCertificates;
     }
 
     private async void AddCertificates()
     {
         if (Certificate != null)
         {
-            var select = Certificates.FindLast(f => f.Numbel == Certificate.Numbel);
+            var select = _DbContext.TableCertificates.Where(f => f.Numbel == Certificate.Numbel).FirstOrDefault();
             if (select == null)
             {
-                Certificates.Add(new Certificate()
+                var certificate = new Certificate()
                 {
                     Guid = Guid.NewGuid().ToString(),
                     TD = Certificate.TD,
@@ -136,18 +145,9 @@
                     TestDateTime = Certificate.TestDateTime,
                     TestPersonnel = Certificate.TestPersonnel,
                     VNextTestDateTime = Certificate.VNextTestDateTime
-                });
-                _DbContext.TableCertificates.Add(new Certificate()
-                {
-                    Guid = Guid.NewGuid().ToString(),
-                    TD = Certificate.TD,
-                    ToTD = Certificate.ToTD,
-                    Name = Certificate.Name,
-                    Numbel = Certificate.Numbel,
-                    TestDateTime = Certificate.TestDateTime,
-                    TestPersonnel = Certificate.TestPersonnel,
-                    VNextTestDateTime = Certificate.VNextTestDateTime
-                });
+                };
+                Certificates.Add(certificate);
+                _DbContext.TableCertificates.Add(certificate);
                 _DbContext.SaveChanges();
             }
             else
@@ -164,8 +164,10 @@
         var scer = Certificates.Find(r => r.Guid == number);
         if (scer != null)
         {
+            _DbContext.Remove(scer);
             Certificates.Remove(scer);
-            _ConfigurationData.SaveJson(Certificates);
+            _DbContext.SaveChanges();
+           // _ConfigurationData.SaveJson(Certificates);
             await _JSRuntime.InvokeVoidAsync("alert", "产品删除成功");
         }
     }

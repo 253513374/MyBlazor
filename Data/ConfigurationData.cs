@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.EntityFrameworkCore;
 using QRCoder;
 
 namespace MyBlazor.Data
@@ -15,12 +16,14 @@ namespace MyBlazor.Data
     {
 
         string filePath = AppDomain.CurrentDomain.BaseDirectory + @"Certificate.json";
-        public List<Certificate> ListCertificates { get; set; } 
+        public List<Certificate> ListCertificates { get; set; }
 
-        public ConfigurationData()
+        private MyBlazorDbContext myBlazorDbContext;
+        public ConfigurationData(MyBlazorDbContext myBlazorDb)
         {
             //  ListRules = GetConfigJson();
-            GetConfigJson();
+            myBlazorDbContext = myBlazorDb;
+            //Initdatebaseasync();
         }
         public void SaveJson(List<Certificate> ListRules)
         {
@@ -50,7 +53,7 @@ namespace MyBlazor.Data
 
         
 
-        public void GetConfigJson()
+        public  void GetConfigJson()
         {
             if (!File.Exists(filePath)) ListCertificates = new List<Certificate>() { new Certificate() };
             using (var Filevar = new FileStream(filePath, FileMode.Open))
@@ -62,14 +65,17 @@ namespace MyBlazor.Data
                 }
             }
         }
-
-
+        public async void Initdatebaseasync()
+        {
+            ListCertificates = await myBlazorDbContext.TableCertificates.AsNoTracking().ToListAsync();
+        }
+       
         public string GetQrImg( string qrtext)
         {
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(qrtext, QRCodeGenerator.ECCLevel.Q);
             Base64QRCode qrCode = new Base64QRCode(qrCodeData);
-            string qrCodeImageAsBase64 = qrCode.GetGraphic(5);
+            string qrCodeImageAsBase64 = qrCode.GetGraphic(2);
 
             return "data:image/png;base64," + qrCodeImageAsBase64;
         }

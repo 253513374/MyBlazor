@@ -17,11 +17,12 @@
     .div2 {
         position: absolute;
         z-index: 2;
-        padding-top: 6rem;
+        padding-bottom: 12rem;
+        padding-left:7rem;
     }
     .tab{color:black;font-size:small;font-family:Consolas;table-layout:fixed;min-width:18rem;}
     .mydiv {
-        height: 23rem; border-radius: 15px; font-size:smaller;
+        height: 23rem; border-radius: 15px; font-size:smaller; position: relative;
     }
     .mydiv2 {
         text-wrap: normal;
@@ -48,7 +49,7 @@
 <div class="text-left">
 
 
-    <div class=" shadow-lg bg-white rounded w-100  text-monospace mydiv ">
+    <div class=" shadow-sm bg-white rounded w-100  text-monospace mydiv ">
 
         @*<p class="h5 font-weight-bold text-monospace " style="padding-top:1.5em;padding-bottom:1em">安全工器具试验合格证</p>*@
 
@@ -68,16 +69,28 @@
             <dt class="col-md-4 col-5 text-left">试验人员:</dt>
             <dd class="col-md-8 col-7">@AtCertificate.TestPersonnel</dd>
         </dl>*@
+        @if (AtCertificate != null)
+        {
 
-        <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">所属单位:<span class="font-weight-bold text-wrap">@AtCertificate.TD</span></p></div>
-       
-        <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">产品名称:<span class="font-weight-bold text-wrap">@AtCertificate.Name</span></p> </div>
-        <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">产品编号:<span class="font-weight-bold text-wrap">@AtCertificate.Numbel</span></p></div>
-        <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">试验日期:<span class="font-weight-bold text-wrap">@AtCertificate.TestDateTime.ToString("yyyy年MM月dd日")</span></p></div>
-        <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">下次试验:<span class="font-weight-bold text-wrap">@AtCertificate.VNextTestDateTime.ToString("yyyy年MM月dd日")</span></p></div>
-        <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">试验人员:<span class="font-weight-bold text-wrap">@AtCertificate.TestPersonnel</span></p></div>
+          
+            <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">所属单位:<span class="font-weight-bold text-wrap">@AtCertificate.TD</span></p></div>
 
-        <div class="mydiv2  "><p class="font-weight-normal">校验单位:<span class="font-weight-bold">@AtCertificate.ToTD</span></p></div>
+            <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">产品名称:<span class="font-weight-bold text-wrap">@AtCertificate.Name</span></p> </div>
+            <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">产品编号:<span class="font-weight-bold text-wrap">@AtCertificate.Numbel</span></p></div>
+            <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">试验日期:<span class="font-weight-bold text-wrap">@AtCertificate.TestDateTime.ToString("yyyy年MM月dd日")</span></p></div>
+            <div class="mydiv2  "><p class="font-weight-normal text-monospace text-wrap">下次试验:<span class="font-weight-bold text-wrap">@AtCertificate.VNextTestDateTime.ToString("yyyy年MM月dd日")</span></p></div>
+            <div class="mydiv2  ">
+                <p class="font-weight-normal text-monospace text-wrap">试验人员:<span class="font-weight-bold text-wrap">@AtCertificate.TestPersonnel</span></p>
+
+            </div>
+
+            <div class="mydiv2  ">
+                <p class="font-weight-normal">校验单位:<span class="font-weight-bold">@AtCertificate.ToTD</span></p>
+
+            </div>
+
+
+        }
 
     </div>
 
@@ -107,8 +120,8 @@
     public string Title { get; set; }
 
 
-
-    public Certificate AtCertificate;
+    [Parameter]
+    public Certificate AtCertificate { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -116,23 +129,23 @@
 
         var index = _UriHelper.Uri;
 
-        GetCertificate(Title);
+      //  AtCertificate=GetCertificate(Title);
 
     }
 
 
-    public void GetCertificate(string Number)
+    public Certificate GetCertificate(string Number)
     {
-     //   var Certificates = ;
+        //   var Certificates = ;
 
         var atCertificate = _ConfigurationData.ListCertificates.FindLast(f => f.Guid == Number);
         if (atCertificate != null)
         {
-            AtCertificate = atCertificate;
+            return atCertificate;
         }
         else
         {
-            AtCertificate = new Certificate();
+            return null;
         }
     }
 

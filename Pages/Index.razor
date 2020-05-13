@@ -7,7 +7,7 @@
 @inject NavigationManager UriHelper
 
 @inject ConfigurationData _ConfigurationData
-
+@inject MyBlazorDbContext _DbContext
 
 <div class="container-fluid text-left">
     @*  <h3 style="padding-top:3em">海南威特送变电工程有限公司</h3>*@
@@ -20,7 +20,7 @@
         HAINAN WEITE POWER TRANSMISSION AND TRANSFORMATION CO.,LTD
     </p>
     @*<SurveyPrompt Title="How is Blazor working for you?" />*@
-    <SurveyPrompt Title="@Id" />
+    <SurveyPrompt Title="@Id" AtCertificate="@AtCertificate" />
 
     @if (!string.IsNullOrEmpty(Id))
     {
@@ -45,15 +45,22 @@
 
     private string Productnumber { set; get; }
 
+    [Parameter]
+    public Certificate AtCertificate { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
 
-        var find=_ConfigurationData.ListCertificates.Find(f => f.Guid == Id);
-
-        if(find!=null)
+        if (Id != null)
         {
-            Productnumber = find.Numbel;
+            AtCertificate =  _DbContext.TableCertificates.Where(w=>w.Guid==Id).AsNoTracking().FirstOrDefault();//Find(f => f.Guid == Id);
+
+            if (AtCertificate != null)
+            {
+                Productnumber = AtCertificate.Numbel;
+            }
         }
+       
         //if (authenticationStateTask.Result.User.Identity.IsAuthenticated)
         //{
         //   CallCenterUser = await _UserManager.GetUserAsync(authenticationStateTask.Result.User);
