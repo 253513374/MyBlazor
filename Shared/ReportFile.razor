@@ -1,4 +1,8 @@
-﻿<div>
+﻿
+
+@*@inherits BlazorBase*@
+
+<div>
 
     <div class="text-center">
         <p class="h3 font-weight-bold text-monospace " style="padding-top: 1.5em; padding-bottom: 1em ">安全帽试验报告</p>
@@ -8,7 +12,7 @@
         <tbody class="text-left text-monospace font-weight-normal">
             <tr>
                 @*<td>
-                        <p>所属单位：<span style="color: red">中海石油海南天然气有限公司</span></p>
+                          <p>所属单位：<span style="color: red">中海石油海南天然气有限公司</span></p>
                     </td>*@
             </tr>
 
@@ -17,14 +21,13 @@
                     <p>生产厂家：<span>天长市天安防护用品有限公司</span></p>
                 </td>
                 @*<td>
-                        <p> 型号：<span  >GSSB</span></p>
+                          <p> 型号：<span  >GSSB</span></p>
 
                     </td>*@
             </tr>
             <tr>
                 <td>
                     <p> 型号：<span></span></p>
-
                 </td>
             </tr>
         </tbody>
@@ -50,8 +53,6 @@
                     <p>样品5：0037，样品6：0048</p>
                     <p></p>
                 </th>
-
-
             </tr>
             <tr>
                 <th>检验标准</th>
@@ -69,15 +70,11 @@
                     <p>侧向刚性：</p>
                     <p>用GB2812－81规定的方法给安全帽横向加43kg压力，帽壳最大变形不应超过40mm，卸载后变形不应超过15mm。</p>
                 </th>
-
             </tr>
             <tr>
-
                 <th>备注</th>
                 <th>0001-0056为同一批次，样品合格即全部合格</th>
-
             </tr>
-
         </tbody>
     </table>
     <div class="div2">
@@ -90,13 +87,11 @@
                 <td>
                     <p> <span>李茂保、李海辉</span></p>
                 </td>
-
             </tr>
             <tr>
                 <td><p>试验日期:</p></td>
                 <td>
                     <p><span>2020年04月26日</span></p>
-
                 </td>
             </tr>
             <tr>
@@ -119,8 +114,8 @@
 
 @code{
 
-     [Parameter]
-     public string Title { get; set; }
+    [Parameter]
+    public string Title { get; set; }
 
     [Parameter]
     public string Number { get; set; }

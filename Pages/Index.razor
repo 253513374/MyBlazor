@@ -20,9 +20,9 @@
         HAINAN WEITE POWER TRANSMISSION AND TRANSFORMATION CO.,LTD
     </p>
     @*<SurveyPrompt Title="How is Blazor working for you?" />*@
-    <SurveyPrompt Title="@Id" AtCertificate="@AtCertificate" />
+    <SurveyPrompt AtCertificate="@AtCertificate" />
 
-    @if (!string.IsNullOrEmpty(Id))
+    @if (AtCertificate!=null)
     {
         <ReportFile Number="@Productnumber" />
     }
@@ -41,7 +41,7 @@
 
 @code{
     [Parameter]
-    public string Id { get; set; }
+    public string Id { get; set; } = "";
 
     private string Productnumber { set; get; }
 
@@ -51,7 +51,7 @@
     protected override async Task OnInitializedAsync()
     {
 
-        if (Id != null)
+        if (Id!="")
         {
             AtCertificate =  _DbContext.TableCertificates.Where(w=>w.Guid==Id).AsNoTracking().FirstOrDefault();//Find(f => f.Guid == Id);
 
@@ -60,7 +60,7 @@
                 Productnumber = AtCertificate.Numbel;
             }
         }
-       
+
         //if (authenticationStateTask.Result.User.Identity.IsAuthenticated)
         //{
         //   CallCenterUser = await _UserManager.GetUserAsync(authenticationStateTask.Result.User);
