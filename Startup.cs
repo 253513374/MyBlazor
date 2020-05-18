@@ -53,6 +53,8 @@ namespace MyBlazor
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

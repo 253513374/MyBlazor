@@ -51,7 +51,7 @@
     protected override async Task OnInitializedAsync()
     {
 
-        if (Id!="")
+        if (Id!=null)
         {
             AtCertificate =  _DbContext.TableCertificates.Where(w=>w.Guid==Id).AsNoTracking().FirstOrDefault();//Find(f => f.Guid == Id);
 
