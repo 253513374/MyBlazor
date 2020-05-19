@@ -7,158 +7,172 @@
 @inject NavigationManager UriHelper
 @inject MyBlazorDbContext _DbContext
 
-
-
-<div class="row " style="background-color:lightgoldenrodyellow;">
-    <div class=" col text-center " style="max-width:300px;">
-        <div class="accordion" id="accordionExample">
-            <div class="card">
-                <div class="card-header" id="headingOne">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            添加合格证
-                        </button>
-                    </h2>
-                </div>
-
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                    <div class="card-body">
-                        <h1>数据添加</h1>
-                        <form class="text-left">
-                            <div class="form-group ">
-                                <label for="inputCity">所属单位</label>
-                                <input type="text" class="form-control" @bind="Certificate.TD">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail4">产品名称</label>
-                                <input type="text" class="form-control" @bind="Certificate.Name">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPassword4">产品编号</label>
-                                <input type="text" class="form-control" @bind="Certificate.Numbel">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputAddress">试验日期</label>
-                                <input type="date" class="form-control" @bind="Certificate.TestDateTime">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputAddress2">下次试验日期</label>
-                                <input type="date" class="form-control" @bind="Certificate.VNextTestDateTime">
-                            </div>
-                            <div class="form-group ">
-                                <label for="inputCity">试验人</label>
-                                <input type="text" class="form-control" @bind="Certificate.TestPersonnel">
-                            </div>
-                            <div class="form-group ">
-                                <label for="inputCity">校验单位</label>
-                                <input type="text" class="form-control" @bind="Certificate.ToTD">
-                            </div>
-                            <div class="form-group text-right ">
-                                <button type="button" class="btn btn-primary" @onclick="AddCertificates">添加</button>
-
-
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                                    批量添加
+<AuthorizeView>
+    <Authorized>
+        <div class="row " style="background-color:lightgoldenrodyellow;">
+            <div class=" col text-center " style="max-width:300px;">
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    添加合格证
                                 </button>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header" id="headingTwo">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            试验报告模板管理
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                    <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header" id="headingThree">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            产品管理
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                    <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
-                </div>
-            </div>
-        </div>
-       
-
-    </div>
-
-   
-    <div class=" col-auto text-center">
-
-        <div style="background-image:url();">
-
-        </div>
-        <dvi class="row ">
-
-            @if (Certificates != null)
-            {
-                @foreach (var itme in Certificates)
-                {
-                    var imgsrc = GetImg(itme.Guid);
-                    @*<div class="card" style="width:15rem;background-size:100%;background-repeat:no-repeat;background-image:url(@ImgSrc)">
-                        <img src="/css/image/QRCODEURL.png"  class="card-img-top" alt="...">
-
-                    </div>*@
-                    <div style="background-color:rgba(8,8,8,0.2);color:#ffffff;border:double;border-radius:10px;width:15rem;height:15rem;background-size:100%;background-repeat:no-repeat;background-image:url(/css/image/QRCODEURL.png)">
-                        <p>@itme.Name</p>
-                        <p>@itme.Numbel</p>
-                        <p>@itme.Guid</p>
-                        @*<h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
-                        <button class="btn btn-primary" @onclick="@(d=>UpCertificates(@itme.Guid))">复制</button>
-
-                        <button class="btn btn-primary" @onclick="@(d=>DelCertificates(@itme.Guid))">删除</button>
-                    </div>
-                }
-            }
-
-        </dvi>
-    </div>
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">批量生产</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body ">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">生成数量</span>
+                            </h2>
                         </div>
-                        <input type="text" class="form-control" @bind="BatchNumber" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <h1>数据添加</h1>
+                                <form class="text-left">
+                                    <div class="form-group ">
+                                        <label for="inputCity">所属单位</label>
+                                        <input type="text" class="form-control" @bind="Certificate.TD">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail4">产品名称</label>
+                                        <input type="text" class="form-control" @bind="Certificate.Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword4">产品编号</label>
+                                        <input type="text" class="form-control" @bind="Certificate.Numbel">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputAddress">试验日期</label>
+                                        <input type="date" class="form-control" @bind="Certificate.TestDateTime">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputAddress2">下次试验日期</label>
+                                        <input type="date" class="form-control" @bind="Certificate.VNextTestDateTime">
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="inputCity">试验人</label>
+                                        <input type="text" class="form-control" @bind="Certificate.TestPersonnel">
+                                    </div>
+                                    <div class="form-group ">
+                                        <label for="inputCity">校验单位</label>
+                                        <input type="text" class="form-control" @bind="Certificate.ToTD">
+                                    </div>
+                                    <div class="form-group text-right ">
+                                        <button type="button" class="btn btn-primary" @onclick="AddCertificates">添加</button>
+
+
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                            批量添加
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <p>提示：批量生成规则是【产品编号按顺序递增】</p>
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    试验报告模板管理
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                            <div class="card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingThree">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    产品管理
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                            <div class="card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            </div>
+                        </div>
+                    </div>
                 </div>
-               
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="AddCertificatesBatch">确认</button>
+
+
+            </div>
+
+
+            <div class=" col-auto text-center">
+
+                <div style="background-image:url();">
+
+                </div>
+                <dvi class="row ">
+
+                    @if (Certificates != null)
+                    {
+                        @foreach (var itme in Certificates)
+                        {
+                            var imgsrc = GetImg(itme.Guid);
+                            @*<div class="card" style="width:15rem;background-size:100%;background-repeat:no-repeat;background-image:url(@ImgSrc)">
+                                <img src="/css/image/QRCODEURL.png"  class="card-img-top" alt="...">
+
+                            </div>*@
+                            <div style="background-color:rgba(8,8,8,0.2);color:#ffffff;border:double;border-radius:10px;width:15rem;height:15rem;background-size:100%;background-repeat:no-repeat;background-image:url(/css/image/QRCODEURL.png)">
+                                <p>@itme.Name</p>
+                                <p>@itme.Numbel</p>
+                                <p>@itme.Guid</p>
+                                @*<h5 class="card-title">Card title</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
+                                <button class="btn btn-primary" @onclick="@(d=>UpCertificates(@itme.Guid))">复制</button>
+
+                                <button class="btn btn-primary" @onclick="@(d=>DelCertificates(@itme.Guid))">删除</button>
+                            </div>
+                        }
+                    }
+
+                </dvi>
+            </div>
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">批量生产</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body ">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-default">生成数量</span>
+                                </div>
+                                <input type="text" class="form-control" @bind="BatchNumber" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                            </div>
+                            <p>提示：批量生成规则是【产品编号按顺序递增】</p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="AddCertificatesBatch">确认</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </Authorized>
+    <NotAuthorized>
+        @*<a href="Identity/Account/Login">F:\Visual Studio 2015\威特电缆\MyBlazor\Areas\Identity\Pages\Account\Login</a>*@
+      
+          @{
+              UriHelper.NavigateTo("Identity/Account/Login", true); 
+          }
+    </NotAuthorized>
+</AuthorizeView>
+
+
 @code {
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
 
     private Certificate Certificate { set; get; } = new Certificate();
 
@@ -171,7 +185,11 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        Certificates =  await _DbContext.TableCertificates.AsNoTracking().ToListAsync();// _ConfigurationData.ListCertificates;
+
+        if (authenticationStateTask.Result.User.Identity.IsAuthenticated)
+        {
+             Certificates =  await _DbContext.TableCertificates.AsNoTracking().ToListAsync();// _ConfigurationData.ListCertificates;
+        }
     }
 
     private async void AddCertificates()

@@ -1,15 +1,21 @@
 ﻿@inherits LayoutComponentBase
 
-@*<div class="sidebar">
-    <NavMenu />
-</div>*@
 
-<div class="main" >
-    @*<div class="top-row px-4">
-        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+@*<div class="sidebar">
+        <NavMenu />
     </div>*@
+
+<div class="main">
+    @*<div class="top-row px-4">
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        </div>*@
 
     <div class="content px-4 " style="background: linear-gradient(to bottom,rgba(251,193,46,1) 20rem, #ffffff 0);">
         @Body
     </div>
 </div>
+
+@code{
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+}
