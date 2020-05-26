@@ -29,8 +29,15 @@ namespace MyBlazor.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("AccountDBContextConnection")));
 
-                services.AddDefaultIdentity<MyBlazorUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<AccountDBContext>();
+                services.AddDefaultIdentity<MyBlazorUser>(options => {
+                    options.Password.RequiredLength = 4;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+
+                    options.SignIn.RequireConfirmedEmail = true;
+                }).AddEntityFrameworkStores<AccountDBContext>();
             });
         }
     }

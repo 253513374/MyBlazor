@@ -16,7 +16,7 @@
                         <div class="card-header" id="headingOne">
                             <h2 class="mb-0">
                                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    添加合格证
+                                    添加产品信息展示
                                 </button>
                             </h2>
                         </div>
@@ -231,7 +231,6 @@
             _DbContext.Remove(scer);
             Certificates.Remove(scer);
             _DbContext.SaveChanges();
-            // _ConfigurationData.SaveJson(Certificates);
             await _JSRuntime.InvokeVoidAsync("alert", "产品删除成功");
         }
     }
@@ -288,8 +287,6 @@
     private string GetImg(string guid)
     {
         QrcodeUri = UriHelper.BaseUri+@"/"+guid;
-
-        // return
 
         return _ConfigurationData.GetQrImg(QrcodeUri);
     }
