@@ -24,11 +24,11 @@
 
     @if (AtCertificate!=null)
     {
-        <ReportFile Number="@Productnumber" 安全帽试验报告 />
+        <ReportFile Number="@Productnumber" Title=@AtCertificate.Name />
     }
 
 
-    <div class="text-center text-nowrap font-weight-normal text-monospace">
+    <div class="text-center text-nowrap font-weight-normal text-monospace" style="padding-top:2.5rem;">
         <p>
             海南威特送变电工程有限公司
         </p>

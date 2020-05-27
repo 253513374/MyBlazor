@@ -2,6 +2,8 @@
 
 @page "/Admin"
 
+@layout  _LayoutAdmin
+
 @inject IJSRuntime _JSRuntime
 @inject ConfigurationData _ConfigurationData
 @inject NavigationManager UriHelper
@@ -10,7 +12,7 @@
 <AuthorizeView>
     <Authorized>
         <div class="row " style="background-color:lightgoldenrodyellow;">
-            <div class=" col text-center " style="max-width:300px;">
+            <div class=" col w-25 text-center " style="max-width:300px;">
                 <div class="accordion" id="accordionExample">
                     <div class="card">
                         <div class="card-header" id="headingOne">
@@ -95,76 +97,100 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
 
+            <dvi class="container w-75 text-center" style="height:45rem;overflow-y:scroll">
+                @*<Table TItem="BootstrapBlazor.Components."
+                           IsPagination="true" PageItemsSource="@Certificates" PageItems="2" OnQuery="@OnQuery">
+                        <HeaderTemplate>
+                            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
+                            <TableColumn TItem="string" @bind-Field="@context.Name" />
+                            <TableColumn TItem="string" @bind-Field="@context.Address" />
+                        </HeaderTemplate>
+                        <RowTemplate>
+                            <TableCell>@context.DateTime</TableCell>
+                            <TableCell>@context.Name</TableCell>
+                            <TableCell>@context.Address</TableCell>
+                        </RowTemplate>
+                    </Table>*@
 
-            <div class=" col-auto text-center">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">URl路由参数</th>
+                            <th scope="col">产品名称</th>
+                            <th scope="col">产品编号</th>
+                            <th scope="col">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                <div style="background-image:url();">
-
-                </div>
-                <dvi class="row ">
-
-                    @if (Certificates != null)
-                    {
-                        @foreach (var itme in Certificates)
+                        @if (Certificates != null)
                         {
-                            var imgsrc = GetImg(itme.Guid);
-                            @*<div class="card" style="width:15rem;background-size:100%;background-repeat:no-repeat;background-image:url(@ImgSrc)">
-                                <img src="/css/image/QRCODEURL.png"  class="card-img-top" alt="...">
+                            @for (int k = 0; k < Certificates.Count; k++)
+                            {
+                                var itme = Certificates[k];
+                                <tr>
+                                    <th scope="row">@(k+1)</th>
+                                    <td>@itme.Guid</td>
+                                    <td>@itme.Name</td>
+                                    <td>@itme.Numbel</td>
+                                </tr>
 
-                            </div>*@
-                            <div style="background-color:rgba(8,8,8,0.2);color:#ffffff;border:double;border-radius:10px;width:15rem;height:15rem;background-size:100%;background-repeat:no-repeat;background-image:url(/css/image/QRCODEURL.png)">
-                                <p>@itme.Name</p>
-                                <p>@itme.Numbel</p>
-                                <p>@itme.Guid</p>
-                                @*<h5 class="card-title">Card title</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
-                                <button class="btn btn-primary" @onclick="@(d=>UpCertificates(@itme.Guid))">复制</button>
-
-                                <button class="btn btn-primary" @onclick="@(d=>DelCertificates(@itme.Guid))">删除</button>
-                            </div>
+                            }
                         }
-                    }
+                    </tbody>
+                </table>
 
-                </dvi>
-            </div>
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">批量生产</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body ">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-default">生成数量</span>
-                                </div>
-                                <input type="text" class="form-control" @bind="BatchNumber" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+
+            </dvi>
+
+            @*<div style="background-color:rgba(8,8,8,0.2);color:#ffffff;border:double;border-radius:10px;width:15rem;height:15rem;background-size:100%;background-repeat:no-repeat;background-image:url(/css/image/QRCODEURL.png)">
+                    <p>@itme.Name</p>
+                    <p>@itme.Numbel</p>
+                    <p>@itme.Guid</p>
+                    <button class="btn btn-primary" @onclick="@(d=>UpCertificates(@itme.Guid))">复制</button>
+                    <button class="btn btn-primary" @onclick="@(d=>DelCertificates(@itme.Guid))">删除</button>
+                </div>*@
+
+        </div>
+
+        @**弹出对话框*@
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">批量生产</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body ">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">生成数量</span>
                             </div>
-                            <p>提示：批量生成规则是【产品编号按顺序递增】</p>
+                            <input type="text" class="form-control" @bind="BatchNumber" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         </div>
+                        <p>提示：批量生成规则是【产品编号按顺序递增】</p>
+                    </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="AddCertificatesBatch">确认</button>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" @onclick="AddCertificatesBatch">确认</button>
                     </div>
                 </div>
             </div>
         </div>
+
     </Authorized>
     <NotAuthorized>
         @*<a href="Identity/Account/Login">F:\Visual Studio 2015\威特电缆\MyBlazor\Areas\Identity\Pages\Account\Login</a>*@
-      
-          @{
-              UriHelper.NavigateTo("Identity/Account/Login", true); 
-          }
+
+        @{
+            UriHelper.NavigateTo("Identity/Account/Login", true);
+        }
     </NotAuthorized>
 </AuthorizeView>
 
@@ -188,7 +214,7 @@
 
         if (authenticationStateTask.Result.User.Identity.IsAuthenticated)
         {
-             Certificates =  await _DbContext.TableCertificates.AsNoTracking().ToListAsync();// _ConfigurationData.ListCertificates;
+            Certificates = await _DbContext.TableCertificates.AsNoTracking().ToListAsync();// _ConfigurationData.ListCertificates;
         }
     }
 
@@ -255,9 +281,10 @@
 
     private async void AddCertificatesBatch()
     {
-        if(BatchNumber>0)
+        if (BatchNumber > 0)
         {
-            await Task.Run(()=> {
+            await Task.Run(() =>
+            {
 
                 for (int i = 0; i < BatchNumber; i++)
                 {
@@ -271,11 +298,11 @@
                             TD = Certificate.TD,
                             ToTD = Certificate.ToTD,
                             Name = Certificate.Name,
-                            Numbel =num,
+                            Numbel = num,
                             TestDateTime = Certificate.TestDateTime,
                             TestPersonnel = Certificate.TestPersonnel,
                             VNextTestDateTime = Certificate.VNextTestDateTime
-                        });;
+                        }); ;
                     }
                 }
                 _ConfigurationData.SaveJson(Certificates);
@@ -286,7 +313,7 @@
 
     private string GetImg(string guid)
     {
-        QrcodeUri = UriHelper.BaseUri+@"/"+guid;
+        QrcodeUri = UriHelper.BaseUri + @"/" + guid;
 
         return _ConfigurationData.GetQrImg(QrcodeUri);
     }

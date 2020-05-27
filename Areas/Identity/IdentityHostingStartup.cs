@@ -27,7 +27,7 @@ namespace MyBlazor.Areas.Identity
 
             services.AddDbContext<AccountDBContext>(options =>
                     options.UseSqlServer(
-                        context.Configuration.GetConnectionString("AccountDBContextConnection")));
+                        context.Configuration.GetConnectionString("CallCenterDbContext")));
 
                 services.AddDefaultIdentity<MyBlazorUser>(options => {
                     options.Password.RequiredLength = 4;
@@ -36,7 +36,7 @@ namespace MyBlazor.Areas.Identity
                     options.Password.RequireUppercase = false;
                     options.Password.RequireNonAlphanumeric = false;
 
-                    options.SignIn.RequireConfirmedEmail = true;
+                    options.SignIn.RequireConfirmedEmail = false;
                 }).AddEntityFrameworkStores<AccountDBContext>();
             });
         }

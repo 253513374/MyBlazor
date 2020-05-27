@@ -34,6 +34,8 @@ namespace MyBlazor
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
+           // services.AddBootstrapBlazor();
+
             services.AddSingleton<WeatherForecastService>();
             services.AddScoped<ConfigurationData>();
 

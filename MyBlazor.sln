@@ -22,14 +22,4 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3457C33C-7B71-4F65-92F0-01A28F701202}
 	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 1
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://dev.azure.com/qinxishi
-		SccProjectUniqueName0 = MyBlazor.csproj
-		SccProjectName0 = .
-		SccAuxPath0 = https://dev.azure.com/qinxishi
-		SccLocalPath0 = .
-		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-	EndGlobalSection
 EndGlobal
