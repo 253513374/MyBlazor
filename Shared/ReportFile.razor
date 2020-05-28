@@ -2,28 +2,23 @@
 
 @*@inherits BlazorBase*@
 
+    <style>
+        
+    </style>
+
+
 <div>
 
     <div class="text-center">
-        <p class="h3 font-weight-bold text-monospace " style="padding-top: 1.5em; padding-bottom: 1em ">@Title<samp>试验报告</samp></p>
+        <p class="h3 font-weight-bold text-monospace " style="padding-top: 1.5em; padding-bottom: 1em ">@ReportCertificate.Name<samp>试验报告</samp></p>
     </div>
 
     <table>
         <tbody class="text-left text-monospace font-weight-normal">
             <tr>
-                @*<td>
-                          <p>所属单位：<span style="color: red">中海石油海南天然气有限公司</span></p>
-                    </td>*@
-            </tr>
-
-            <tr>
                 <td>
                     <p>生产厂家：<span>天长市天安防护用品有限公司</span></p>
                 </td>
-                @*<td>
-                          <p> 型号：<span  >GSSB</span></p>
-
-                    </td>*@
             </tr>
             <tr>
                 <td>
@@ -34,9 +29,9 @@
     </table>
 
 
-    <TableComponent2 Number="@Number" />
-    @*<p>sadasdasdddddddd</p>*@
-    
+    <TableComponent2 Number="@ReportCertificate.Numbel" />
+
+
     <div class="div2">
         <img src="/css/image/log.png" style="width:75%;height:auto;">
     </div>
@@ -45,13 +40,13 @@
             <tr>
                 <td><p>试验人员:</p></td>
                 <td>
-                    <p> <span>李茂保、李海辉</span></p>
+                    <p> <span>@ReportCertificate.TestPersonnel</span></p>
                 </td>
             </tr>
             <tr>
                 <td><p>试验日期:</p></td>
                 <td>
-                    <p><span>2020年04月26日</span></p>
+                    <p><span>@ReportCertificate.TestDateTime </span></p>
                 </td>
             </tr>
             <tr>
@@ -63,7 +58,7 @@
             <tr>
                 <td><p>试验周期:</p></td>
                 <td>
-                    <p><span>两年半</span></p>
+                    <p><span>@DateDiff() 天</span></p>
                 </td>
             </tr>
         </tbody>
@@ -74,9 +69,22 @@
 
 @code{
 
-    [Parameter]
-    public string Title { get; set; }
+    //[Parameter]
+    //public string Title { get; set; }
+
+    //[Parameter]
+    public string Number { get; set; }
 
     [Parameter]
-    public string Number { get; set; }
+    public Certificate ReportCertificate { get; set; }
+
+
+
+    private int DateDiff()
+    {
+        DateTime start = Convert.ToDateTime(ReportCertificate.TestDateTime.ToShortDateString());
+        DateTime end = Convert.ToDateTime(ReportCertificate.VNextTestDateTime.ToShortDateString());
+        TimeSpan sp = end.Subtract(start);
+        return sp.Days;
+    }
 }

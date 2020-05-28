@@ -1,5 +1,5 @@
 ﻿
-<table border="1" class="tab text-left text-monospace font-weight-normal ">
+<table border="1" class="tab text-left text-monospace font-weight-normal  ">
     <caption><p><span class="font-weight-normal">试验结果:</span>依据《电力安全工作规程》(发电厂和变电站电气部分)GB26860-2011，试验合格。</p></caption>
 
     <tbody class="text-monospace font-weight-normal">
@@ -9,29 +9,34 @@
             </th>
         </tr>
         <tr>
-
-            <th>试验电压kV</th>
-            <th>15</th>
+            <th rowspan="3">工频耐压试验</th>
+            <th>试验长度m</th>
+            <th>0.9</th>
         </tr>
         <tr>
             <th>时间min</th>
             <th>1</th>
         </tr>
         <tr>
-            <th>泄漏电流mA</th>
-            <th>3.7</th>
+            <th>试验电压kV</th>
+            <th>95</th>
+        </tr>
+
+        <tr>
+            <th rowspan="2">启动电压试验</th>
+            <th>启动电压要求值kV</th>
+            <th>5.25~14</th>
         </tr>
         <tr>
-            <th>泄漏电流要求mA</th>
-            <th>≤ 7.5</th>
+            <th>启动电压kV</th>
+            <th>2.3</th>
         </tr>
-     
     </tbody>
 </table>
 @code {
     [Parameter]
     public string Number { get; set; }
 
-    //绝缘靴
+    //35kV验电器
 
 }

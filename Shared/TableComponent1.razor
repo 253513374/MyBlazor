@@ -2,7 +2,7 @@
 
 
 
-<table border="1" class="tab text-left text-monospace font-weight-normal ">
+<table border="1" class="text-left text-monospace font-weight-normal " >
     <caption><p><span class="font-weight-normal">试验结果:</span>依据《电力安全工作规程》(发电厂和变电站电气部分)GB26860-2011，试验合格。</p></caption>
 
     <tbody class="text-monospace font-weight-normal">
@@ -12,7 +12,7 @@
             </th>
         </tr>
         <tr>
-            <th>抽取样品编号</th>
+            <th scope="col" >抽取样品编号</th>
             <th>
                 <p>样品1：0007，样品2：0015</p>
                 <p></p>
@@ -23,7 +23,7 @@
             </th>
         </tr>
         <tr>
-            <th>检验标准</th>
+            <th scope="col" >检验标准</th>
             <th>
                 <p>冲击吸收性能：</p>
                 <p>用三顶安全帽分别在50±2℃（矿井下用安全帽40℃）、－10±2℃及浸水三种情况下处理，然后用5KG钢锤自1M高度落下进行冲击试验，头模所受冲击力的最大值均不应超过500KG。</p>
@@ -48,4 +48,5 @@
 @code {
     [Parameter]
     public string Number { get; set; }
+    //安全帽
 }

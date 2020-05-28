@@ -34,8 +34,15 @@ namespace MyBlazor.Data
         /// </summary>
         public DateTime TestDateTime { set; get; } = DateTime.Now.Date;
 
+        /// <summary>
+        /// 下次试验日期
+        /// </summary>
         public DateTime VNextTestDateTime { set; get; }= DateTime.Now.AddDays(15).Date;
 
+        /// <summary>
+        /// 生产厂家
+        /// </summary>
+        public string Manufacturer { set; get; }
         /// <summary>
         /// 试验人员
         /// </summary>

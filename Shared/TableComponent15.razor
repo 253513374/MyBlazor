@@ -1,37 +1,54 @@
 ﻿
-<table border="1" class="tab text-left text-monospace font-weight-normal ">
+<table border="1" class="tab text-left text-monospace font-weight-normal  ">
     <caption><p><span class="font-weight-normal">试验结果:</span>依据《电力安全工作规程》(发电厂和变电站电气部分)GB26860-2011，试验合格。</p></caption>
 
     <tbody class="text-monospace font-weight-normal">
         <tr>
-            <th colspan="3" scope="col">
+            <th colspan="6" scope="col">
                 <p> 编号：@Number</p>
             </th>
         </tr>
         <tr>
+            <th colspan="2">成组直流电阻试验</th>
+            <th colspan="2">操作棒工频耐压试验</th>
+            <th rowspan="2">软导线截面 mm² </th>
+            <th rowspan="2">软导线长度 m</th>
 
+        </tr>
+        <tr>
             <th>试验电压kV</th>
-            <th>15</th>
-        </tr>
-        <tr>
             <th>时间min</th>
+            <th>直流电阻mΩ</th>
+            <th>直流电阻要求值mΩ/m</th>
+
+        </tr>
+        <tr>
+            <th>220</th>
             <th>1</th>
+            <th>2.16</th>
+            <th rowspan="3">&lt;3.16</th>
+            <th rowspan="3">25 </th>
+            <th rowspan="3">3</th>
         </tr>
         <tr>
-            <th>泄漏电流mA</th>
-            <th>3.7</th>
+            <th>220</th>
+            <th>1</th>
+            <th>2.11</th>
+
         </tr>
         <tr>
-            <th>泄漏电流要求mA</th>
-            <th>≤ 7.5</th>
+            <th>220</th>
+            <th>1</th>
+            <th>2.23</th>
         </tr>
-     
+
+
     </tbody>
 </table>
 @code {
     [Parameter]
     public string Number { get; set; }
 
-    //绝缘靴
+    //110kV接地线
 
 }
