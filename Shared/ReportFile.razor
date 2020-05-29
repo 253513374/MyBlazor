@@ -7,64 +7,72 @@
     </style>
 
 
-<div>
+    <div>
 
-    <div class="text-center">
-        <p class="h3 font-weight-bold text-monospace " style="padding-top: 1.5em; padding-bottom: 1em ">@ReportCertificate.Name<samp>试验报告</samp></p>
+        <div class="text-center">
+            <p class="h3 font-weight-bold text-monospace " style="padding-top: 1.5em; padding-bottom: 1em ">@ReportCertificate.Name<samp>试验报告</samp></p>
+        </div>
+
+        <table>
+            <tbody class="text-left text-monospace font-weight-normal">
+                <tr>
+                    <td>
+                        <p>生产厂家：<span>@ReportCertificate.Manufacturer</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p> 型号：<span></span></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        @switch (ReportCertificate.ReprotFileMatching)
+        {
+            case "":
+                break;
+            default:
+                <TableComponent1 Number="@ReportCertificate.Numbel" />
+                break;
+        }
+
+
+
+
+        <div class="div2">
+            <img src="/css/image/log.png" style="width:75%;height:auto;">
+        </div>
+        <table class="tab text-left">
+            <tbody>
+                <tr>
+                    <td class="w-25"><p>试验人员:</p></td>
+                    <td class="w-auto">
+                        <p> <span>@ReportCertificate.TestPersonnel</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w-25"><p>试验日期:</p></td>
+                    <td class="w-auto">
+                        <p><span>@ReportCertificate.TestDateTime </span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w-25"><p>试验环境:</p></td>
+                    <td class="w-auto">
+                        <p><span>@ReportCertificate.TestSurroundings</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w-25"><p>试验周期:</p></td>
+                    <td class="w-auto">
+                        <p><span>@DateDiff() 天</span></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
     </div>
-
-    <table>
-        <tbody class="text-left text-monospace font-weight-normal">
-            <tr>
-                <td>
-                    <p>生产厂家：<span>天长市天安防护用品有限公司</span></p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p> 型号：<span></span></p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-
-    <TableComponent2 Number="@ReportCertificate.Numbel" />
-
-
-    <div class="div2">
-        <img src="/css/image/log.png" style="width:75%;height:auto;">
-    </div>
-    <table class="tab text-left">
-        <tbody>
-            <tr>
-                <td><p>试验人员:</p></td>
-                <td>
-                    <p> <span>@ReportCertificate.TestPersonnel</span></p>
-                </td>
-            </tr>
-            <tr>
-                <td><p>试验日期:</p></td>
-                <td>
-                    <p><span>@ReportCertificate.TestDateTime </span></p>
-                </td>
-            </tr>
-            <tr>
-                <td><p>试验环境:</p></td>
-                <td>
-                    <p><span>温度：30℃  湿度70%</span></p>
-                </td>
-            </tr>
-            <tr>
-                <td><p>试验周期:</p></td>
-                <td>
-                    <p><span>@DateDiff() 天</span></p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-</div>
 
 
 @code{

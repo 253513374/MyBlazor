@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -47,5 +48,17 @@ namespace MyBlazor.Data
         /// 试验人员
         /// </summary>
         public string TestPersonnel { set; get; }
+
+
+        /// <summary>
+        /// 试验报告
+        /// </summary>
+        [NotNull]
+        public string ReprotFileMatching { set; get; }
+
+        /// <summary>
+        /// 试验环境
+        /// </summary>
+        public string TestSurroundings { set; get; }
     }
 }

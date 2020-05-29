@@ -20,11 +20,28 @@ namespace MyBlazor.Migrations
                     Numbel = table.Column<string>(nullable: true),
                     TestDateTime = table.Column<DateTime>(nullable: false),
                     VNextTestDateTime = table.Column<DateTime>(nullable: false),
+                    Manufacturer = table.Column<string>(nullable: true),
                     TestPersonnel = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Certificate", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductManage",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductCreateTime = table.Column<DateTime>(nullable: false),
+                    ProductName = table.Column<string>(nullable: true),
+                    ProductNumber = table.Column<string>(nullable: true),
+                    ProductSupplier = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductManage", x => x.ID);
                 });
         }
 
@@ -32,6 +49,9 @@ namespace MyBlazor.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Certificate");
+
+            migrationBuilder.DropTable(
+                name: "ProductManage");
         }
     }
 }

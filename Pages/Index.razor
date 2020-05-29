@@ -9,49 +9,49 @@
 @inject ConfigurationData _ConfigurationData
 @inject MyBlazorDbContext _DbContext
 
-    <div class="container-fluid text-left">
-        @*  <h3 style="padding-top:3em">海南威特送变电工程有限公司</h3>*@
+<div class="container-fluid text-left">
+    @*  <h3 style="padding-top:3em">海南威特送变电工程有限公司</h3>*@
 
 
 
-        <img src="/css/image/wtlog2.png" class="img-fluid rounded mx-auto " style="padding-top:0em;padding-bottom:0.5em">
-        @*Welcome to your new app.*@
-        <p class=" h4 text-monospace font-weight-bolder" style="font-family:Consolas;color:#0a3f8b">
-            HAINAN WEITE POWER TRANSMISSION AND TRANSFORMATION CO.,LTD
+    <img src="/css/image/wtlog2.png" class="img-fluid rounded mx-auto " style="padding-top:0em;padding-bottom:0.5em">
+    @*Welcome to your new app.*@
+    <p class=" h4 text-monospace font-weight-bolder" style="font-family:Consolas;color:#0a3f8b">
+        HAINAN WEITE POWER TRANSMISSION AND TRANSFORMATION CO.,LTD
+    </p>
+    @*<SurveyPrompt Title="How is Blazor working for you?" />*@
+    <SurveyPrompt AtCertificate="@AtCertificate" />
+
+    @if (AtCertificate != null)
+    {
+        <ReportFile ReportCertificate="@AtCertificate" />
+    }
+    @*<TableComponent1 Number="@Number" />
+    <TableComponent2 Number="@Number" />
+    <TableComponent3 Number="@Number" />
+    <TableComponent4 Number="@Number" />
+    <TableComponent5 Number="@Number" />
+    <TableComponent6 Number="@Number" />
+    <TableComponent7 Number="@Number" />
+    <TableComponent8 Number="@Number" />
+    <TableComponent9 Number="@Number" />
+    <TableComponent10 Number="@Number" />
+    <TableComponent11 Number="@Number" />
+    <TableComponent12 Number="@Number" />
+    <TableComponent13 Number="@Number" />
+    <TableComponent14 Number="@Number" />
+    <TableComponent15 Number="@Number" />
+    <TableComponent16 Number="@Number" />*@
+
+    @((MarkupString)myMarkup)
+
+
+    <div class="text-center text-nowrap font-weight-normal text-monospace" style="padding-top:2.5rem;">
+        <p>
+            海南威特送变电工程有限公司
         </p>
-        @*<SurveyPrompt Title="How is Blazor working for you?" />*@
-        <SurveyPrompt AtCertificate="@AtCertificate" />
-
-        @if (AtCertificate != null)
-        {
-            <ReportFile ReportCertificate="@AtCertificate" />
-        }
-        <TableComponent1 Number="@Number" />
-        <TableComponent2 Number="@Number" />
-        <TableComponent3 Number="@Number" />
-        <TableComponent4 Number="@Number" />
-        <TableComponent5 Number="@Number" />
-        <TableComponent6 Number="@Number" />
-        <TableComponent7 Number="@Number" />
-        <TableComponent8 Number="@Number" />
-        <TableComponent9 Number="@Number" />
-        <TableComponent10 Number="@Number" />
-        <TableComponent11 Number="@Number" />
-        <TableComponent12 Number="@Number" />
-        <TableComponent13 Number="@Number" />
-        <TableComponent14 Number="@Number" />
-        <TableComponent15 Number="@Number" />
-        <TableComponent16 Number="@Number" />
-
-        @((MarkupString)myMarkup)
-
-
-        <div class="text-center text-nowrap font-weight-normal text-monospace" style="padding-top:2.5rem;">
-            <p>
-                海南威特送变电工程有限公司
-            </p>
-        </div>
     </div>
+</div>
 
 
 
@@ -62,12 +62,14 @@
     public string Id { get; set; } = "";
 
     [Parameter]
-    public string Number { get; set; } = "000000000";
+    public string Number { get; set; } = "0004545000000";
 
     private string Productnumber { set; get; }
 
     [Parameter]
     public Certificate AtCertificate { get; set; }
+
+    private string myMarkup { set; get; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -80,46 +82,51 @@
             //{
             //    Productnumber = AtCertificate.Numbel;
             //}
+            //  Number = string.Format(myMarkup, "000054545000");
         }
-
+        GetMarkup();
         //if (authenticationStateTask.Result.User.Identity.IsAuthenticated)
         //{
         //   CallCenterUser = await _UserManager.GetUserAsync(authenticationStateTask.Result.User);
         //    Name = CallCenterUser.RealName;
         //}
+        }
+
+    private void GetMarkup()
+    {
+        myMarkup = string.Format(@"<table border=""1"" class=""tab text-left text-monospace font-weight-normal "">
+                                    <caption><p><span class=""font-weight-normal"">试验结果:</span>依据《电力安全工作规程》(发电厂和变电站电气部分) GB26860-2011，试验合格。</p></caption>
+
+                                    <tbody class=""text-monospace font-weight-normal"">
+                                    <tr>
+                                        <th colspan=""2"" >
+                                            <p> 编号：{0}</p>
+                                        </th>
+                                    </tr>
+                                    <tr>
+
+                                        <th>试验电压kV</th>
+                                        <th>15</th>
+                                    </tr>
+                                    <tr>
+                                        <th>时间min</th>
+                                        <th>1</th>
+                                    </tr>
+                                    <tr>
+                                        <th>泄漏电流mA</th>
+                                        <th>3.7</th>
+                                    </tr>
+                                    <tr>
+                                        <th>泄漏电流要求mA</th>
+                                        <th>≤ 7.5</th>
+                                    </tr>
+
+                                    </tbody>
+                                    </table>", Number);
     }
 
+    // private string markup
 
 
-    private string myMarkup =
-            @"<table border=""1"" class=""tab text-left text-monospace font-weight-normal "">
-<caption><p><span class=""font-weight-normal"">试验结果:</span>依据《电力安全工作规程》(发电厂和变电站电气部分) GB26860-2011，试验合格。</p></caption>
-
-<tbody class=""text-monospace font-weight-normal"">
-    <tr>
-        <th colspan=""2"" >
-            <p> 编号：@Number</p>
-        </th>
-    </tr>
-    <tr>
-
-        <th>试验电压kV</th>
-        <th>15</th>
-    </tr>
-    <tr>
-        <th>时间min</th>
-        <th>1</th>
-    </tr>
-    <tr>
-        <th>泄漏电流mA</th>
-        <th>3.7</th>
-    </tr>
-    <tr>
-        <th>泄漏电流要求mA</th>
-        <th>≤ 7.5</th>
-    </tr>
-
-</tbody>
-</table>";
 
 }

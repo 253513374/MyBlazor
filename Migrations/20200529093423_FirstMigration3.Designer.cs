@@ -10,8 +10,8 @@ using MyBlazor.Data;
 namespace MyBlazor.Migrations
 {
     [DbContext(typeof(MyBlazorDbContext))]
-    [Migration("20200512150642_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20200529093423_FirstMigration3")]
+    partial class FirstMigration3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,10 +31,16 @@ namespace MyBlazor.Migrations
                     b.Property<string>("Guid")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Manufacturer")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Numbel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReprotFileMatching")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TD")
@@ -46,6 +52,9 @@ namespace MyBlazor.Migrations
                     b.Property<string>("TestPersonnel")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TestSurroundings")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ToTD")
                         .HasColumnType("nvarchar(max)");
 
@@ -55,6 +64,30 @@ namespace MyBlazor.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Certificate");
+                });
+
+            modelBuilder.Entity("MyBlazor.Data.ProductManage", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("ProductCreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductSupplier")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ProductManage");
                 });
 #pragma warning restore 612, 618
         }

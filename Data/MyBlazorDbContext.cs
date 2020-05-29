@@ -19,10 +19,14 @@ namespace MyBlazor.Data
 
             modelBuilder.Entity<Certificate>().HasKey(p => p.ID);
             modelBuilder.Entity<Certificate>().ToTable("Certificate");
-           
+            modelBuilder.Entity<ProductManage>().HasKey(p => p.ID);
+            modelBuilder.Entity<ProductManage>().ToTable("ProductManage");
+            
         }
         public DbSet<Certificate> TableCertificates { get; set; }
 
-      //  public DbSet<UsersActivation> UsersActivations { get; set; }
+        public DbSet<ProductManage> ProductManages { get; set; }
+
+        //  public DbSet<UsersActivation> UsersActivations { get; set; }
     }
 }

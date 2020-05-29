@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBlazor.Data;
 
 namespace MyBlazor.Migrations
 {
     [DbContext(typeof(MyBlazorDbContext))]
-    partial class MyBlazorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200529085844_FirstMigration")]
+    partial class FirstMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,9 +40,6 @@ namespace MyBlazor.Migrations
                     b.Property<string>("Numbel")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ReprotFileMatching")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("TD")
                         .HasColumnType("nvarchar(max)");
 
@@ -48,9 +47,6 @@ namespace MyBlazor.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("TestPersonnel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TestSurroundings")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ToTD")
