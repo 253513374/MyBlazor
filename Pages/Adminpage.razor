@@ -1,9 +1,7 @@
-﻿
+﻿@page "/Adminpage"
 
-@page "/Admin"
 
-@layout  _LayoutAdmin
-
+@layout _LayoutAdmin
 @inject IJSRuntime _JSRuntime
 @inject ConfigurationData _ConfigurationData
 @inject NavigationManager UriHelper
@@ -236,7 +234,7 @@
 
         //if (authenticationStateTask.Result.User.Identity.IsAuthenticated)
         //{
-        // QueryCertificates();
+        //QueryCertificates();
         ReportEnums = Enum.GetNames(typeof(ReportEnum));
     }
 
@@ -266,6 +264,7 @@
                 _DbContext.TableCertificates.Add(certificate);
                 _DbContext.SaveChanges();
                 StateHasChanged();
+                await _JSRuntime.InvokeVoidAsync("alert", "产品添加成功");
             }
             else
             {
@@ -373,20 +372,20 @@
         //   Certificates = await QueryCertificates();
     }
 
-    private void QueryCertificates()
+    private async void QueryCertificates()
     {
         //DateTime dateTime = _ConfigurationData.GetUtcTime().
         if (Query.ReprotEnumSelect != null)
         {
-            Certificates= _DbContext.TableCertificates.Where(w => w.CreateTime >= Query.BeingTime && w.CreateTime <= Query.EndTime).Where(w=>w.ReprotFileMatching== Query.ReprotEnumSelect).AsNoTracking().ToList();
+            Certificates= _DbContext.TableCertificates.Where(w => w.CreateTime >= Query.BeingTime && w.CreateTime <= Query.EndTime).Where(w=>w.ReprotFileMatching== Query.ReprotEnumSelect).AsNoTracking().OrderByDescending(o=>o.CreateTime).ToList();
 
         }
         else
         {
-            Certificates=  _DbContext.TableCertificates.AsNoTracking().Where(w => w.CreateTime >= Query.BeingTime && w.CreateTime <= Query.EndTime).ToList();
+            Certificates=  _DbContext.TableCertificates.AsNoTracking().Where(w => w.CreateTime >= Query.BeingTime && w.CreateTime <= Query.EndTime).OrderByDescending(o => o.CreateTime).ToList();
 
         }
-
+        await _JSRuntime.InvokeVoidAsync("alert", "查询成功"+ Certificates.Count.ToString());
         //  StateHasChanged();
         //return null;
     }
