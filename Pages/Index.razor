@@ -43,7 +43,7 @@
     <TableComponent15 Number="@Number" />
     <TableComponent16 Number="@Number" />*@
 
-    @((MarkupString)myMarkup)
+    @*@((MarkupString)myMarkup)*@
 
 
     <div class="text-center text-nowrap font-weight-normal text-monospace" style="padding-top:2.5rem;">
@@ -76,7 +76,7 @@
 
         if (Id != null)
         {
-            AtCertificate = _DbContext.TableCertificates.Where(w => w.Guid == Id).AsNoTracking().FirstOrDefault();//Find(f => f.Guid == Id);
+            AtCertificate =await  _DbContext.TableCertificates.Where(w => w.Guid == Id).AsNoTracking().FirstOrDefaultAsync();//Find(f => f.Guid == Id);
 
             //if (AtCertificate != null)
             //{
@@ -90,11 +90,12 @@
         //   CallCenterUser = await _UserManager.GetUserAsync(authenticationStateTask.Result.User);
         //    Name = CallCenterUser.RealName;
         //}
-        }
+    }
 
     private void GetMarkup()
     {
-        myMarkup = string.Format(@"<table border=""1"" class=""tab text-left text-monospace font-weight-normal "">
+
+        var marup = @"<table border=""1"" class=""tab text-left text-monospace font-weight-normal "">
                                     <caption><p><span class=""font-weight-normal"">试验结果:</span>依据《电力安全工作规程》(发电厂和变电站电气部分) GB26860-2011，试验合格。</p></caption>
 
                                     <tbody class=""text-monospace font-weight-normal"">
@@ -122,7 +123,8 @@
                                     </tr>
 
                                     </tbody>
-                                    </table>", Number);
+                                    </table>";
+        myMarkup = string.Format(marup, Number);
     }
 
     // private string markup

@@ -59,6 +59,12 @@ namespace MyBlazor.Data
         /// <summary>
         /// 试验环境
         /// </summary>
-        public string TestSurroundings { set; get; }
+        public string TestSurroundings { set; get; } = "温度：30℃  湿度70%";
+
+
+        /// <summary>
+        /// 信息创建时间
+        /// </summary>
+        public DateTime CreateTime { set; get; }
     }
 }

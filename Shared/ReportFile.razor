@@ -28,13 +28,64 @@
             </tbody>
         </table>
 
-        @switch (ReportCertificate.ReprotFileMatching)
-        {
-            case "":
-                break;
-            default:
-                <TableComponent1 Number="@ReportCertificate.Numbel" />
-                break;
+        @{
+
+            var switch_on = (ReportEnum)Enum.Parse(typeof(ReportEnum), @ReportCertificate.ReprotFileMatching);
+            switch (switch_on)
+            {
+                case ReportEnum.绝缘杆10kV试验报告:
+                    <TableComponent3 Number="@ReportCertificate.Numbel" />
+                    break;
+                case ReportEnum.绝缘杆35kV试验报告:
+                    <TableComponent12 Number="@ReportCertificate.Numbel" />
+                    break;
+                case ReportEnum.绝缘杆110kV试验报告:
+                    <TableComponent13 Number="@ReportCertificate.Numbel" />
+                    break;
+                case ReportEnum.验电器10kV试验报告:
+                    <TableComponent2 Number="@ReportCertificate.Numbel" />
+                    break;
+                case ReportEnum.验电器35kV试验报告:
+                    <TableComponent10 Number="@ReportCertificate.Numbel" />
+                    break;
+                case ReportEnum.验电器110kV试验报告:
+                    <TableComponent11 Number="@ReportCertificate.Numbel" />
+                    break;
+                case ReportEnum.接地线10kV试验报告:
+                    <TableComponent6 Number="@ReportCertificate.Numbel" />
+                    break;
+                case ReportEnum.接地线35kV试验报告:
+                    <TableComponent14 Number="@ReportCertificate.Numbel" />
+                    break;
+                case ReportEnum.接地线110kV试验报告:
+                    <TableComponent15 Number="@ReportCertificate.Numbel" />
+                    break;
+                case ReportEnum.安全帽试验报告:
+                    <TableComponent1 Number="@ReportCertificate.Numbel" />
+                    break;
+                case ReportEnum.绝缘靴试验报告:
+                    <TableComponent16 Number="@ReportCertificate.Numbel" />
+                    break;
+                case ReportEnum.绝缘手套试验报告:
+                    <TableComponent4 Number="@ReportCertificate.Numbel" />
+                    break;
+                case ReportEnum.绝缘胶垫试验报告:
+                    <TableComponent5 Number="@ReportCertificate.Numbel" />
+                    break;
+                case ReportEnum.安全带试验报告:
+                    <TableComponent7 Number="@ReportCertificate.Numbel" />
+                    break;
+                case ReportEnum.脚扣试验报告:
+                    <TableComponent8 Number="@ReportCertificate.Numbel" />
+                    break;
+                case ReportEnum.梯子试验报告:
+                    <TableComponent9 Number="@ReportCertificate.Numbel" />
+                    break;
+                @*default:
+                    <TableComponent1 Number="@ReportCertificate.Numbel" />
+                    break;*@
+
+            }
         }
 
 
@@ -54,7 +105,7 @@
                 <tr>
                     <td class="w-25"><p>试验日期:</p></td>
                     <td class="w-auto">
-                        <p><span>@ReportCertificate.TestDateTime </span></p>
+                        <p><span>@ReportCertificate.TestDateTime.ToString("yyyy年MM月dd日") </span></p>
                     </td>
                 </tr>
                 <tr>

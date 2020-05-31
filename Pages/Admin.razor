@@ -13,147 +13,164 @@
     <Authorized>
         <div class="row " style="background-color:lightgoldenrodyellow;">
             <div class=" col w-25 text-center " style="max-width:300px;">
-                <div class="accordion" id="accordionExample">
-                    <div class="card">
-                        <div class="card-header" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    添加产品信息展示
-                                </button>
-                            </h2>
+                <h1>数据添加</h1>
+                <form class="text-left">
+                    <div class="form-group ">
+                        <label for="inputCity">所属单位</label>
+                        <input type="text" class="form-control" @bind="@FromCertificate.TD">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail4">产品名称</label>
+                        <input type="text" class="form-control" @bind="@FromCertificate.Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">试验报告</label>
+                        <select class="form-control" id="exampleFormControlSelect1" @bind="@FromCertificate.ReprotFileMatching">
+                            <option selected value=""></option>
+                            @if (ReportEnums != null)
+                            {
+                                for (int i = 0; i < ReportEnums.Length; i++)
+                                {
+                                    var name = ReportEnums[i].ToString();
+                                    <option>@name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck">
+                            <label class="form-check-label" for="gridCheck">
+                                自定义产品编号
+                            </label>
                         </div>
+                        <input type="text" class="form-control" @bind="FromCertificate.Numbel">
+                    </div>
 
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                            <div class="card-body">
-                                <h1>数据添加</h1>
-                                <form class="text-left">
-                                    <div class="form-group ">
-                                        <label for="inputCity">所属单位</label>
-                                        <input type="text" class="form-control" @bind="Certificate.TD">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputEmail4">产品名称</label>
-                                        <input type="text" class="form-control" @bind="Certificate.Name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputPassword4">产品编号</label>
-                                        <input type="text" class="form-control" @bind="Certificate.Numbel">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputAddress">试验日期</label>
-                                        <input type="date" class="form-control" @bind="Certificate.TestDateTime">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputAddress2">下次试验日期</label>
-                                        <input type="date" class="form-control" @bind="Certificate.VNextTestDateTime">
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="inputCity">试验人</label>
-                                        <input type="text" class="form-control" @bind="Certificate.TestPersonnel">
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="inputCity">校验单位</label>
-                                        <input type="text" class="form-control" @bind="Certificate.ToTD">
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="inputCity">生产厂家</label>
-                                        <input type="text" class="form-control" @bind="Certificate.Manufacturer">
-                                    </div>
-                                    <div class="form-group text-right ">
-                                        <button type="button" class="btn btn-primary" @onclick="AddCertificates">添加</button>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                                            批量添加
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    <div class="form-check">
+
                     </div>
-                    <div class="card">
-                        <div class="card-header" id="headingTwo">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    试验报告模板管理
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                            <div class="card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                            </div>
-                        </div>
+                    <div class="form-group">
+
+                        <label for="inputAddress">试验日期</label>
+                        <input type="date" class="form-control" @bind="@FromCertificate.TestDateTime">
                     </div>
-                    <div class="card">
-                        <div class="card-header" id="headingThree">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    产品管理
-                                </button>
-                            </h2>
-                        </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                            <div class="card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label for="inputAddress2">下次试验日期</label>
+                        <input type="date" class="form-control" @bind="@FromCertificate.VNextTestDateTime">
                     </div>
-                </div>
+                    <div class="form-group ">
+                        <label for="inputCity">试验人</label>
+                        <input type="text" class="form-control" @bind="@FromCertificate.TestPersonnel">
+                    </div>
+                    <div class="form-group ">
+                        <label for="inputCity">校验单位</label>
+                        <input type="text" class="form-control" @bind="@FromCertificate.ToTD">
+                    </div>
+                    <div class="form-group ">
+                        <label for="inputCity">生产厂家</label>
+                        <input type="text" class="form-control" @bind="@FromCertificate.Manufacturer">
+                    </div>
+                    <div class="form-group ">
+                        <label for="inputCity">试验环境</label>
+                        <input type="text" class="form-control" @bind="@FromCertificate.TestSurroundings">
+                    </div>
+                    <div class="form-group text-right ">
+                        <button type="button" class="btn btn-primary" @onclick="@AddCertificates">添加</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                            批量添加
+                        </button>
+                    </div>
+                </form>
             </div>
 
-            <dvi class="container w-75 text-center" style="height:45rem;overflow-y:scroll">
-                @*<Table TItem="BootstrapBlazor.Components."
-                           IsPagination="true" PageItemsSource="@Certificates" PageItems="2" OnQuery="@OnQuery">
-                        <HeaderTemplate>
-                            <TableColumn TItem="DateTime" @bind-Field="@context.DateTime" />
-                            <TableColumn TItem="string" @bind-Field="@context.Name" />
-                            <TableColumn TItem="string" @bind-Field="@context.Address" />
-                        </HeaderTemplate>
-                        <RowTemplate>
-                            <TableCell>@context.DateTime</TableCell>
-                            <TableCell>@context.Name</TableCell>
-                            <TableCell>@context.Address</TableCell>
-                        </RowTemplate>
-                    </Table>*@
+            <dvi class="container w-75 text-center">
+                <div class="text-left">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputdate">开始时间</label>
+                                <input type="date" class="form-control" id="inputdate" @bind="@Query.BeingTime">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputdate4">结束时间</label>
+                                <input type="date" class="form-control" id="inputdate4" @bind="@Query.EndTime">
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                            <label for="inputAddress">Address</label>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress2">Address 2</label>
+                            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                        </div>*@
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputState">试验报告</label>
+                                <select class="form-control" id="ontrolSelect1" @bind="@Query.ReprotEnumSelect">
+                                    <option selected value=""></option>
+                                    @if (ReportEnums != null)
+                                    {
+                                        for (int i = 0; i < ReportEnums.Length; i++)
+                                        {
+                                            var name = ReportEnums[i].ToString();
+                                            <option>@name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4 align-text-bottom">
+                                <label for="inputState"></label>
+                                <button type="submit" class="btn btn-primary form-control"  @onclick="@QueryCertificates">查 询</button>
+                            </div>                        
+                        </div>
+                    </form>
+                </div>
 
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">URl路由参数</th>
-                            <th scope="col">产品名称</th>
-                            <th scope="col">产品编号</th>
-                            <th scope="col">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @if (Certificates != null)
-                        {
-                            @for (int k = 0; k < Certificates.Count; k++)
-                            {
-                                var itme = Certificates[k];
+                <div  style="height:55rem;overflow-y:scroll">
+                    @if (Certificates.Count>0)
+                    {
+                        <table class="table table-hover">
+                            <thead>
                                 <tr>
-                                    <th scope="row">@(k+1)</th>
-                                    <td>@itme.Guid</td>
-                                    <td>@itme.Name</td>
-                                    <td>@itme.Numbel</td>
+                                    <th scope="col">#</th>
+                                    <th scope="col">唯一编码</th>
+                                    <th scope="col">产品名称</th>
+                                    <th scope="col">产品编号</th>
+                                    <th scope="col">试验报告</th>
+                                    <th scope="col">操作</th>
                                 </tr>
+                            </thead>
+                            <tbody>
+                                @for (int k = 0; k < Certificates.Count; k++)
+                                {
+                                    var itme = Certificates[k];
+                                    <tr>
+                                        <th>@(k+1)</th>
+                                        <td>@itme.Guid</td>
+                                        <td>@itme.Name</td>
+                                        <td>@itme.ReprotFileMatching</td>
+                                        <td>@itme.Numbel</td>
+                                        <td>
+                                            <button class="btn btn-primary" @onclick="@(d=>UpCertificates(@itme.Guid))">复制</button>
+                                            <button class="btn btn-primary" @onclick="@(d=>DelCertificates(@itme.Guid))">删除</button>
+                                        </td>
+                                    </tr>
 
-                            }
-                        }
-                    </tbody>
-                </table>
-
-
+                                 }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <div class="spinner-border" style="width: 8rem; height: 8rem;" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    }
+                </div>
             </dvi>
 
-            @*<div style="background-color:rgba(8,8,8,0.2);color:#ffffff;border:double;border-radius:10px;width:15rem;height:15rem;background-size:100%;background-repeat:no-repeat;background-image:url(/css/image/QRCODEURL.png)">
-                    <p>@itme.Name</p>
-                    <p>@itme.Numbel</p>
-                    <p>@itme.Guid</p>
-                    <button class="btn btn-primary" @onclick="@(d=>UpCertificates(@itme.Guid))">复制</button>
-                    <button class="btn btn-primary" @onclick="@(d=>DelCertificates(@itme.Guid))">删除</button>
-                </div>*@
 
         </div>
 
@@ -201,52 +218,61 @@
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
 
-    private Certificate Certificate { set; get; } = new Certificate();
+    private Certificate FromCertificate =new Certificate();
 
-    private List<Certificate> Certificates { set; get; }
+    private List<Certificate> Certificates = new List<Certificate>(500);
 
+    private QueryCriteria Query = new QueryCriteria();
     private string ImgSrc { set; get; }
     private int BatchNumber { set; get; } = 0;
     private string QrcodeUri { set; get; }
+
+    private string[] ReportEnums { set; get; }
+
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
 
-        if (authenticationStateTask.Result.User.Identity.IsAuthenticated)
-        {
-            Certificates = await _DbContext.TableCertificates.AsNoTracking().ToListAsync();// _ConfigurationData.ListCertificates;
-        }
+        //if (authenticationStateTask.Result.User.Identity.IsAuthenticated)
+        //{
+        // QueryCertificates();
+        ReportEnums = Enum.GetNames(typeof(ReportEnum));
     }
 
     private async void AddCertificates()
     {
-        if (Certificate != null)
+        if (FromCertificate != null)
         {
-            var select = _DbContext.TableCertificates.Where(f => f.Numbel == Certificate.Numbel).FirstOrDefault();
+            var select = await _DbContext.TableCertificates.AsNoTracking().Where(f => f.Numbel == FromCertificate.Numbel).FirstOrDefaultAsync();
             if (select == null)
             {
                 var certificate = new Certificate()
                 {
                     Guid = Guid.NewGuid().ToString(),
-                    TD = Certificate.TD,
-                    ToTD = Certificate.ToTD,
-                    Name = Certificate.Name,
-                    Numbel = Certificate.Numbel,
-                    TestDateTime = Certificate.TestDateTime,
-                    TestPersonnel = Certificate.TestPersonnel,
-                    VNextTestDateTime = Certificate.VNextTestDateTime
+                    TD = FromCertificate.TD,
+                    ToTD = FromCertificate.ToTD,
+                    Name = FromCertificate.Name,
+                    Numbel = GetProductNumber().ToString(),
+                    TestDateTime = FromCertificate.TestDateTime,
+                    TestPersonnel = FromCertificate.TestPersonnel,
+                    ReprotFileMatching= FromCertificate.ReprotFileMatching,
+                    CreateTime = _ConfigurationData.GetUtcTime().Date,
+                    Manufacturer= FromCertificate.Manufacturer,
+                    TestSurroundings = FromCertificate.TestSurroundings,
+                    VNextTestDateTime = FromCertificate.VNextTestDateTime
                 };
                 Certificates.Add(certificate);
                 _DbContext.TableCertificates.Add(certificate);
                 _DbContext.SaveChanges();
+                StateHasChanged();
             }
             else
             {
                 await _JSRuntime.InvokeVoidAsync("alert", "产品添加失败,已经存在相同编码产品");
             }
 
-            _ConfigurationData.SaveJson(Certificates);
+            // _ConfigurationData.SaveJson(Certificates);
         }
     }
 
@@ -267,7 +293,7 @@
         var scer = Certificates.Find(r => r.Guid == guid);
         if (scer != null)
         {
-            Certificate = new Certificate()
+            FromCertificate = new Certificate()
             {
                 TD = scer.TD,
                 ToTD = scer.ToTD,
@@ -280,35 +306,57 @@
         }
     }
 
+    private int GetProductNumber()
+    {
+        DateTime cstTime = _ConfigurationData.GetUtcTime();
+        var yy = cstTime.ToString("yy");
+        var MM = cstTime.ToString("MM");
+        var number = int.Parse((yy + MM).ToString()) * 100000;
+        var daytime = cstTime.AddDays(-Convert.ToInt32(cstTime.Date.Day));
+        var count = _DbContext.TableCertificates.AsNoTracking().Where(w => w.CreateTime > daytime).Count();
+        return number + count + 1;
+    }
+
     private async void AddCertificatesBatch()
     {
         if (BatchNumber > 0)
         {
-            await Task.Run(() =>
+            var beingcount = GetProductNumber();
+
+            var endcount = beingcount + BatchNumber;
+            await Task<int>.Run(() =>
             {
 
-                for (int i = 0; i < BatchNumber; i++)
+                for (int i = beingcount; i < endcount; i++)
                 {
-                    var num = (int.Parse(Certificate.Numbel) + i).ToString();
+                    var num = i.ToString();
                     var select = Certificates.FindLast(f => f.Numbel == num);
                     if (select == null)
                     {
-                        Certificates.Add(new Certificate()
+                        var certificate = new Certificate()
                         {
                             Guid = Guid.NewGuid().ToString(),
-                            TD = Certificate.TD,
-                            ToTD = Certificate.ToTD,
-                            Name = Certificate.Name,
-                            Numbel = num,
-                            TestDateTime = Certificate.TestDateTime,
-                            TestPersonnel = Certificate.TestPersonnel,
-                            VNextTestDateTime = Certificate.VNextTestDateTime
-                        }); ;
+                            TD = FromCertificate.TD,
+                            ToTD = FromCertificate.ToTD,
+                            Name = FromCertificate.Name,
+                            Numbel = num.ToString(),
+                            TestDateTime = FromCertificate.TestDateTime,
+                            TestPersonnel = FromCertificate.TestPersonnel,
+                            ReprotFileMatching = FromCertificate.ReprotFileMatching,
+                            CreateTime = _ConfigurationData.GetUtcTime().Date,
+                            Manufacturer = FromCertificate.Manufacturer,
+                            TestSurroundings = FromCertificate.TestSurroundings,
+                            VNextTestDateTime = FromCertificate.VNextTestDateTime
+                        };
+                        Certificates.Add(certificate);
+                        _DbContext.TableCertificates.Add(certificate);
                     }
                 }
-                _ConfigurationData.SaveJson(Certificates);
+                _DbContext.SaveChanges();
+                //_ConfigurationData.SaveJson(Certificates);
 
             });
+            StateHasChanged();
         }
     }
 
@@ -317,5 +365,29 @@
         QrcodeUri = UriHelper.BaseUri + @"/" + guid;
 
         return _ConfigurationData.GetQrImg(QrcodeUri);
+
+    }
+
+    private async void Querys()
+    {
+        //   Certificates = await QueryCertificates();
+    }
+
+    private void QueryCertificates()
+    {
+        //DateTime dateTime = _ConfigurationData.GetUtcTime().
+        if (Query.ReprotEnumSelect != null)
+        {
+            Certificates= _DbContext.TableCertificates.Where(w => w.CreateTime >= Query.BeingTime && w.CreateTime <= Query.EndTime).Where(w=>w.ReprotFileMatching== Query.ReprotEnumSelect).AsNoTracking().ToList();
+
+        }
+        else
+        {
+            Certificates=  _DbContext.TableCertificates.AsNoTracking().Where(w => w.CreateTime >= Query.BeingTime && w.CreateTime <= Query.EndTime).ToList();
+
+        }
+
+        //  StateHasChanged();
+        //return null;
     }
 }

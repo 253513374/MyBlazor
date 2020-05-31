@@ -26,7 +26,7 @@ namespace MyBlazor.Data
         public string ProductNumber { set; get; }
 
         /// <summary>
-        /// 产品供应商（生产商）
+        /// 产品试验报告
         /// </summary>
         public string ProductSupplier { set; get; }
 

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBlazor.Data;
 
 namespace MyBlazor.Migrations
 {
     [DbContext(typeof(MyBlazorDbContext))]
-    partial class MyBlazorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200529191240_FirstMigration4")]
+    partial class FirstMigration4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

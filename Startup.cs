@@ -30,7 +30,15 @@ namespace MyBlazor
         {
 
             services.AddDbContext<MyBlazorDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("CallCenterDbContext")));
+                options.UseSqlServer(Configuration.GetConnectionString("CallCenterDbContext"), builder =>
+                {
+                    builder.EnableRetryOnFailure(
+                        maxRetryCount: 5,
+                        maxRetryDelay: TimeSpan.FromSeconds(30),
+                        errorNumbersToAdd: new int[] { 2 });
+                    
+                }),ServiceLifetime.Scoped);
+
 
             services.AddRazorPages();
             services.AddServerSideBlazor();

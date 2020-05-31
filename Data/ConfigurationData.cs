@@ -51,7 +51,13 @@ namespace MyBlazor.Data
         }
 
 
-        
+        public DateTime GetUtcTime()
+        {
+            DateTime utctime = DateTime.UtcNow;
+
+            TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("China Standard Time");
+            return TimeZoneInfo.ConvertTimeFromUtc(utctime, cstZone);
+        }
 
         public  void GetConfigJson()
         {
